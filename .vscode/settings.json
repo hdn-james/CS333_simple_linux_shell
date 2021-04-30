@@ -1,0 +1,10 @@
+{
+    "files.associations": {
+        "parser.h": "c",
+        "symbol_table.h": "c",
+        "shell.h": "c",
+        "executor.h": "c",
+        "chrono": "c",
+        "unordered_map": "c"
+    }
+}

@@ -1,0 +1,28 @@
+main.o: main.c shell.h source.h parser.h scanner.h executor.h node.h \
+  history_ulti/history_ulti.h
+prompt.o: prompt.c shell.h source.h symbol_table/symbol_table.h \
+  symbol_table/../node.h
+node.o: node.c shell.h source.h node.h parser.h scanner.h
+parser.o: parser.c shell.h source.h parser.h scanner.h node.h
+scanner.o: scanner.c shell.h source.h scanner.h
+source.o: source.c shell.h source.h
+executor.o: executor.c shell.h source.h node.h executor.h
+initshell.o: initshell.c shell.h source.h symbol_table/symbol_table.h \
+  symbol_table/../node.h
+pattern.o: pattern.c shell.h source.h
+strings.o: strings.c shell.h source.h
+wordexp.o: wordexp.c shell.h source.h symbol_table/symbol_table.h \
+  symbol_table/../node.h executor.h node.h
+shunt.o: shunt.c shell.h source.h symbol_table/symbol_table.h \
+  symbol_table/../node.h
+history.o: builtins/history.c builtins/../shell.h source.h \
+  builtins/../history_ulti/history_ulti.h
+builtins.o: builtins/builtins.c builtins/../shell.h source.h
+dump.o: builtins/dump.c builtins/../shell.h source.h \
+  builtins/../symbol_table/symbol_table.h \
+  builtins/../symbol_table/../node.h
+cd.o: builtins/cd.c builtins/../shell.h source.h
+symbol_table.o: symbol_table/symbol_table.c symbol_table/../shell.h \
+  source.h symbol_table/../node.h symbol_table/../parser.h scanner.h \
+  symbol_table/symbol_table.h
+history_ulti.o: history_ulti/history_ulti.c history_ulti/history_ulti.h
