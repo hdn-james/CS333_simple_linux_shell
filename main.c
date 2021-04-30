@@ -34,6 +34,12 @@ int main(int argc, char **argv)
             free(cmd);
             break;
         }
+        if (strchr(cmd, '<') || strchr(cmd, '>') || strchr(cmd, '|'))
+        {
+            system(cmd);
+            free(cmd);
+            continue;
+        }
         struct source_s src;
         src.buffer = cmd;
         src.bufsize = strlen(cmd);
