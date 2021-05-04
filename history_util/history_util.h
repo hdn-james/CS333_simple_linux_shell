@@ -1,5 +1,5 @@
-#ifndef __HISTORY_ULTI_H__
-#define __HISTORY_ULTI_H__
+#ifndef __HISTORY_UTIL_H__
+#define __HISTORY_UTIL_H__
 
 struct History
 {

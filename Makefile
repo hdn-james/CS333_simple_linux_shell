@@ -16,7 +16,7 @@ SRCS_BUILTINS=$(shell find $(SRCDIR)/builtins -name "*.c")
 
 SRCS_symbol_table=$(SRCDIR)/symbol_table/symbol_table.c
 
-SRCS_history=$(SRCDIR)/history_ulti/history_ulti.c
+SRCS_history=$(SRCDIR)/history_util/history_util.c
 
 SRCS=main.c prompt.c node.c parser.c scanner.c source.c executor.c initshell.c  \
      pattern.c strings.c wordexp.c shunt.c                         \
@@ -34,7 +34,7 @@ all: prep-build $(TARGET)
 prep-build:
 	mkdir -p $(BUILD_DIR)/builtins
 	mkdir -p $(BUILD_DIR)/symbol_table
-	mkdir -p $(BUILD_DIR)/history_ulti
+	mkdir -p $(BUILD_DIR)/history_util
 
 $(TARGET): $(OBJS)
 	$(CC) $(LDFLAGS) -o $@ $^ $(LIBS)
