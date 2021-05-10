@@ -19,7 +19,7 @@ SRCS_symbol_table=$(SRCDIR)/symbol_table/symbol_table.c
 SRCS_history=$(SRCDIR)/history_util/history_util.c
 
 SRCS=main.c prompt.c node.c parser.c scanner.c source.c executor.c initshell.c  \
-     pattern.c strings.c wordexp.c shunt.c                         \
+     pattern.c strings.c wordexp.c shunt.c extension.c                        \
      $(SRCS_BUILTINS) $(SRCS_symbol_table) $(SRCS_history)
 
 OBJS=$(SRCS:%.c=$(BUILD_DIR)/%.o)
@@ -57,4 +57,4 @@ $(BUILD_DIR)/%.o : %.c
 clean:
 	$(RM) $(OBJS) $(TARGET) core .depend
 	$(RM) -r $(BUILD_DIR)
-
+	

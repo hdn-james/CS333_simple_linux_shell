@@ -5,6 +5,8 @@
         "shell.h": "c",
         "executor.h": "c",
         "chrono": "c",
-        "unordered_map": "c"
+        "unordered_map": "c",
+        "history_util.h": "c",
+        "glob.h": "c"
     }
 }

@@ -7,12 +7,14 @@
 void print_prompt1(void)
 {
     struct symtab_entry_s *entry = get_symtab_entry("PS1");
-    char cwd[1024];
-    getcwd(cwd, 1024);
+    struct symtab_entry_s *entry_PWD = get_symtab_entry("CURR_PWD");
     if (entry && entry->val)
-        fprintf(stderr, "\n%s%s> ", entry->val, cwd);
+    {
+        fprintf(stderr, "\n%s%s> ", entry->val, entry_PWD->val);
+    }
+
     else
-        fprintf(stderr, "\n$ %s> ", cwd);
+        fprintf(stderr, "\nosh> %s> ", entry_PWD->val);
 }
 
 void print_prompt2(void)

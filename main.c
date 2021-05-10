@@ -7,18 +7,32 @@
 #include "source.h"
 #include "parser.h"
 #include "executor.h"
-#include "history_ulti/history_ulti.h"
+#include "history_util/history_util.h"
+#include "extension.h"
 
 int main(int argc, char **argv)
 {
     char *cmd;
+    char *temp = malloc(1025);
+    int isOnHis = 0;
 
     initshell();
     init_history();
     do
     {
         print_prompt1();
-        cmd = read_cmd();
+        if (isOnHis == 0)
+            cmd = read_cmd();
+        else
+        {
+            char c;
+            isOnHis = 0;
+            strcpy(cmd, temp);
+            do
+            {
+                scanf("%c", &c);
+            } while (c != 10);
+        }
         add_to_history(cmd);
         if (!cmd)
         {
@@ -34,9 +48,23 @@ int main(int argc, char **argv)
             free(cmd);
             break;
         }
-        if (strchr(cmd, '<') || strchr(cmd, '>') || strchr(cmd, '|'))
+        if (strcmp(cmd, "!!\n") == 0)
         {
-            system(cmd);
+            isOnHis = 1;
+            if (histories.count == 0)
+            {
+                fprintf(stderr, "No commands in history\n");
+                continue;
+            }
+
+            strcpy(temp, histories.lines[histories.count - 2]);
+            temp[strcspn(temp, "\n")] = '\0';
+            printf("%s", temp);
+            continue;
+        }
+        if (strchr(cmd, '<') || strchr(cmd, '>') || strchr(cmd, '|') || cmd[strlen(cmd) - 2] == '&')
+        {
+            run(cmd);
             free(cmd);
             continue;
         }

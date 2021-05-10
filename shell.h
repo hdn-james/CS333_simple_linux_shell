@@ -6,6 +6,8 @@
 
 #include "source.h"
 
+static int LCommand;
+
 void print_prompt1(void);
 void print_prompt2(void);
 
