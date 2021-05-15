@@ -10,6 +10,33 @@
 #include "history_util/history_util.h"
 #include "extension.h"
 
+void mySignal(int signo)
+{
+    if (signo == SIGTERM)
+    {
+        printf("\nProcess %d SIGTERM detected.\n", getpid());
+    }
+    if (signo == SIGINT)
+    {
+        printf("\nProcess %d SIGINT detected.\n", getpid());
+    }
+    if (signo == SIGTSTP)
+    {
+        printf("\nProcess %d SIGTSTP detected.\n", getpid());
+    }
+    /* SIGCHLD needs some support for terminated process */
+    if (signo == SIGCHLD)
+    {
+        int saved_errno;
+        saved_errno = errno;
+        while (waitpid((pid_t)-1, 0, WNOHANG) > 0)
+        {
+        }
+        errno = saved_errno;
+        printf("\nProcess %d received SIGCHLD.\n", getpid());
+    }
+}
+
 int main(int argc, char **argv)
 {
     char *cmd;
@@ -18,6 +45,10 @@ int main(int argc, char **argv)
 
     initshell();
     init_history();
+    signal(SIGTERM, mySignal);
+    signal(SIGINT, mySignal);
+    signal(SIGCHLD, mySignal);
+    signal(SIGTSTP, mySignal);
     do
     {
         print_prompt1();
@@ -68,6 +99,10 @@ int main(int argc, char **argv)
             free(cmd);
             continue;
         }
+        signal(SIGINT, mySignal);
+        signal(SIGTERM, mySignal);
+        signal(SIGCHLD, mySignal);
+        signal(SIGTSTP, mySignal);
         struct source_s src;
         src.buffer = cmd;
         src.bufsize = strlen(cmd);

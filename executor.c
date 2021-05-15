@@ -164,6 +164,7 @@ int do_simple_command(struct node_s *node)
     pid_t child_pid = 0;
     if ((child_pid = fork()) == 0)
     {
+        printf("[CHILD]: PID = %d PPID = %d\n", getpid(), getppid());
         do_exec_cmd(argc, argv);
         fprintf(stderr, "error: failed to execute command: %s\n", strerror(errno));
         if (errno == ENOEXEC)
@@ -179,7 +180,7 @@ int do_simple_command(struct node_s *node)
         free_buffer(argc, argv);
         return 0;
     }
-
+    printf("[PARENT]: PID = %d PPID = %d Child's PID = %d\n", getpid(), getppid(), child_pid);
     int status = 0;
     waitpid(child_pid, &status, 0);
     free_buffer(argc, argv);
